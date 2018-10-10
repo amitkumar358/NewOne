@@ -1,0 +1,13 @@
+--- # Master Nagios
+- hosts: app
+  user: root
+  sudo: yes
+  connection: ssh
+  pre_tasks:
+   - name: Time to start
+     raw: date > /tmp/startime.log
+  roles:
+    - /root/project/nfs.server
+  post_tasks:
+   - name: Time to End
+     raw: date > /tmp/endtime.log

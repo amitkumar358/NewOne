@@ -1,0 +1,3 @@
+- name: Install the nmap package for network team
+  yum:  pkg=nmap state=latest
+  notify: Restart HTTPD

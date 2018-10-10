@@ -1,0 +1,18 @@
+--- # Setting up Handler
+- hosts: db
+  user: root
+  sudo: yes
+  connection: ssh
+  gather_facts: no
+  vars:
+    playbook_version: 1.12
+  vars_prompt:
+    - name: Web_World
+      prompt: My World
+  tasks:
+    - name: Install Web Server
+      action: yum name=telnet state=installed
+      notify: Restart HTTPD
+  handlers:
+    - name: Restart HTTPD
+      action: service name=httpd state=restarted 

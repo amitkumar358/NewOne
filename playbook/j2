@@ -1,0 +1,14 @@
+--- # Working with J2 Module
+- hosts:  app:ub 
+  connection: ssh
+  user: root
+  sudo: yes
+  gather_facts: yes
+  vars:
+   userName:  test
+   userPassword: password123
+   ConnectionType: SFTP
+  tasks:
+    - name:  Deplpy template file for all respective systems
+      template: src=/root/playbook/template.conf.j2 dest=/tmp/updatefile.txt owner=root group=root mode=750
+   

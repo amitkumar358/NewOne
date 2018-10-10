@@ -1,0 +1,9 @@
+--- # User Creation
+- hosts: app
+  user: root
+  sudo: yes
+  gather_facts: no
+  connection:  ssh
+  tasks:
+   - name: Add user Amit to app hosts servers
+     user: name=amit comment="Testing" group=wheel

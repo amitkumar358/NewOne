@@ -1,0 +1,10 @@
+--- #STAT
+- hosts: app
+  user: root
+  connection: ssh
+  tasks:
+   - name: Does a file/directory in a path exist or not?
+     stat: path=/root/delhi
+       register: p
+   - debug: msg="Path exists and is a directory"
+       when: p.stat.isdir is defined and p.stat.isdir

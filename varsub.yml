@@ -1,0 +1,15 @@
+--- # Playbook for variable substitution
+-  hosts: app
+   user:  root
+   sudo:  yes
+   connection: ssh
+   gather_facts: no
+   vars_files:
+    - samplevar.yml    
+   vars_prompt:
+    - name: rpm_name
+      prompt: Provide rpm to be installed
+      private: no
+   tasks:
+    - name: Installing Screen
+      action: yum name={{ pkg_name }} state=installed

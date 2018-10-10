@@ -1,0 +1,10 @@
+---
+- hosts:  app
+  user:   root
+  sudo:   yes
+  connection: ssh
+  tasks:
+    - name: Display the Echo Number
+      command: echo {{ item }}
+      with_items: [ 2, 4, 6, 8, 10 ]
+      when: item > 1

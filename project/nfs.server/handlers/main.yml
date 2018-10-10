@@ -1,0 +1,28 @@
+- name: StartServerServices
+  service: name={{ item }} state=restarted
+  with_items:
+   - "{{ nfsserver_service }}"
+   - "{{ nfslock_service }}"
+   - "{{ nfsmap_service }}"
+- name: InstallClientPackages
+  yum: pkg={{ item }} state=latest
+  with_items:
+   - "{{ nfsutils_pkg }}"
+   - "{{ nfsidmap }}"
+  delegate_to: 127.0.0.1
+  notify: StartClientServices
+- name: StartClientServices
+  service: name={{ item }} state=restarted
+  with_items:
+   - "{{ nfslock_service }}"
+   - "{{ nfsmap_service }}"
+  delegate_to: 127.0.0.1
+- name: CreateClientMount
+  file: path={{ client_path }} state=directory mode=755
+  delegate_to: 127.0.0.1
+- name: ClientMountServerResorce 
+  shell: mount -t nfs4 ansible-peer2:{{ export_path }} {{ client_path }}
+  register: result
+  delegate_to: 127.0.0.1
+- name: TestServerAvailability
+  debug: var=result

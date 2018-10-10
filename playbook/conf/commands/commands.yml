@@ -1,0 +1,2 @@
+- name: Make sure nmap package install 
+  raw: rpm -qa | grep nmap > /tmp/newplay

@@ -1,0 +1,16 @@
+--- # UNTIL Example
+- hosts: all
+  sudo:  yes
+  connection: ssh
+  user: root
+  gather_facts: no
+  tasks:
+    - name: Installing Mysql DB Server 
+      yum:  pkg=mariadb-server state=latest
+    - name: Check the Service Status
+      shell: systemctl status mariadb 
+      register: result
+      until: result.stdout.find("active (running)") != -1
+      retries: 5
+      delay: 15
+    - debug: var=result

@@ -1,0 +1,9 @@
+--- # Ansible Exmple Find Module
+- hosts: app
+  remote_user: root
+  become: yes
+  become_method: sudo
+  gather_facts: yes
+  tasks:
+  - name: find the hosts and fstab file
+    find: paths="/etc" patterns="fstab,hosts"

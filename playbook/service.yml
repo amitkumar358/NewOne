@@ -1,0 +1,12 @@
+--- # Service Module
+- hosts: app
+  user: root
+  sudo: yes
+  connection: ssh
+  tasks:
+  - name: Install the WebServer
+    action: yum name=httpd state=installed
+  - name: Start the Web Server
+    service: name=httpd state=started
+  - name: Enabled HTTPD After Reboot
+    service: name=httpd enabled=yes

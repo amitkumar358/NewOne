@@ -1,0 +1,13 @@
+--- # Ansible 2.0 Package Module
+- hosts: all
+  remote_user: root
+  become: yes
+  become_method: sudo
+  connection: ssh
+  gather_facts: yes
+  tasks: 
+  - name: Install the telnet Client 
+    package: name=telnet state=absent
+    register: result
+  - debug: var=result
+

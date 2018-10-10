@@ -1,0 +1,24 @@
+- installing and setting up an NFS server
+- ansible user
+- sudo access for ansible user
+- gathering facts on
+- connection based on ssh
+
+- setting up initial value
+   - distribution of the system deploying on
+   - the NFS server and client package name
+   - path to the shared file space
+   - the server/group we are installing NFS on
+
+- what do we need to do / install 
+   - install the NFS Server/client and utilities
+   - export the shared directory (/etc/exports)
+   - add our LA lab network
+   - configure the filesystem export for read/write on known network
+      - disable any unkown network or user connection
+   - start the NFS service
+   - cron job to backup the filesystem
+   - NFS client install?
+       - NFS Client /etc/fstab configuration to mount the share on boot
+- test
+   - capture the NFS server service status as a JSON outpu and register  the result

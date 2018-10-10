@@ -1,0 +1,25 @@
+- Installing and Configuring a MariaDB Server (master)
+- The installation will be done with ansible user
+- the installation needs to be done with sudo
+- the connection used is ssh
+- gathering of facts needs to be on
+
+- what do we need to know
+   - the package name of the db server
+   - the group/host of the master server
+   - the directory for installing the db (if not default)
+   - the version of the db
+   - the distribution it is installed on
+
+- what needs to be done/installed
+   - install the MariaDB server and utilities
+   - root password install
+     - waitfor the db service to be started
+       - takes places manually after the mysql-secure-installation run
+   - install the mysql configuration file (if needed)
+   - copy the mysql database backup to the location
+   - import the database
+   - add a cron job for backup
+
+- Testing the db
+  - run a MYSQL command and register the output as JSON format to determine success

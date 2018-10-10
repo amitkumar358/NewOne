@@ -1,0 +1,53 @@
+--- # Host
+- hosts: app
+  user: root
+  sudo: yes
+  connection: ssh
+  gather_facts: yes
+  vars:
+    distribution: RedHat
+    nfsutils_pkg: nfs-utils
+    nfsserver_service: nfs-server
+    nfslock_service: nfs-lock
+    nfslocak_service: nfs-idmap
+    rpcbind_service: rpcbind
+    export_path: /var/share
+
+  tasks:
+  - name: Install the NFS Server and Utilities
+    yum: pkg=nfs-utils state=latest
+  - name: Install the libnfsidmap
+    yum: pkg=libnfsidmap state=latest
+  - name: Copy the export file to remote server
+    copy: src=/tmp/exports dest=/etc/exports owner=root group=root mode=755
+  - name: Start the RPC Bind Service
+    command: systemctl restart rpcbind
+  - name: Start the NFS Service 
+    service: name=nfs-server state=started
+  - name: Start the file lock service
+    service: name=nfs-lock state=started
+  - name: Start the NFS Map service
+    service: name=nfs-idmap state=started
+  - name: Start the RPC Statd service
+    service: name=rpc-statd state=started
+  - name: Install the NFS Client and Utilities
+    yum: pkg=nfs-utils state=latest
+    delegate_to: 127.0.0.1
+  - name: Install the libnfsidmap
+    yum: pkg=libnfsidmap state=latest
+    delegate_to: 127.0.0.1
+  - name: Start Service for Client RPC
+    service: name=rpcbind state=started
+    delegate_to: 127.0.0.1
+  - name: Start NFS Client File Lock Service
+    service: name=nfs-lock state=started
+    delegate_to: 127.0.0.1
+  - name: Start the NFS Client Map Service
+    service: name=nfs-idmap state=started
+    delegate_to: 127.0.0.1
+  - name: Create Client Mount Directory
+    file: path=/mnt/remote state=directory mode=755
+    delegate_to: 127.0.0.1
+  - name: Mount the filesystem on the client from the NFS
+    mount: name=/mnt/remote src=ansible-peer2:/var/share fstype=nfs4 state=present
+    delegate_to: 127.0.0.1

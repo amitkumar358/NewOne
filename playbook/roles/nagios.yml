@@ -1,0 +1,11 @@
+--- # Master Nagios
+- hosts: app
+  user: root
+  sudo: yes
+  connection: ssh
+  pre_tasks:
+   - name: Time to start
+     local_action: raw /tmp/date.sh
+     delegate_to: 127.0.0.1
+  roles:
+    - redhat_web

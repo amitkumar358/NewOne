@@ -1,0 +1,11 @@
+--- # When
+- hosts: local 
+  sudo: yes
+  user: root
+  connection: ssh
+  vars:
+     playbook_type: ConditionalExample
+ tasks:
+    - command: echo {{ item }}
+      with_items: [ 0, 2, 4, 6, 8, 10 ]
+      when: item > 5

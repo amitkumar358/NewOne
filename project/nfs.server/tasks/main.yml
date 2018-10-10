@@ -1,0 +1,13 @@
+- name: Install all the NFS Server and Utilities
+  yum: pkg={{ item }} state=latest
+  with_items:
+    - "{{ nfsutils_pkg }}"
+    - "{{ nfsidmap }}"
+- name: Copy the export file to the remote server
+  copy: src=/tmp/exports dest=/etc/exports owner=root group=root mode=644
+  notify:
+    - StartServerServices
+    - InstallClientPackages
+    - CreateClientMount
+    - ClientMountServerResorce
+    - TestServerAvailability

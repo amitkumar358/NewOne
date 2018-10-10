@@ -1,0 +1,12 @@
+--- # FETCH Module
+- hosts: app
+  user: root
+  sudo: yes
+  connection: ssh
+  gather_facts: no
+  
+  tasks:
+    - name: Copy remote resolve file to control server
+      fetch: src=/etc/resolv.conf dest=/tmp/
+#      fetch: src=/etc/resolv.conf dest=/root/playbook/prefix-{{ ansible_hostname }} flat=yes
+#      fetch: src=/etc/resolv.conf dest=/root/playbook/{{ ansible_hostname }} flat=yes

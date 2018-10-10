@@ -1,0 +1,21 @@
+--- # Interactive Playbook
+- hosts:  app
+  user:   root
+  connection: ssh
+  gather_facts: no
+  vars:
+    playbook_version: 1.05
+  vars_prompt:
+
+  - name: "release_version"
+    prompt: "Product release version"
+    default: "1.0"
+
+  - name:    Software
+    prompt:   Install which Package?
+    default:  nmap
+    private:  yes
+
+  tasks:
+   - name: Install Given package
+     yum:  pkg={{ Software }} state=latest

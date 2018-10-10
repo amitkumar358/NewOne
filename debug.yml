@@ -1,0 +1,8 @@
+--- # Local Action
+- hosts: 127.0.0.1
+  sudo: yes
+  user: root
+  connection: local
+  tasks:
+  - name: Installation of telnet Package
+    yum: pkg=telnet state=latest

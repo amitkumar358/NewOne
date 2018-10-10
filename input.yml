@@ -1,0 +1,4 @@
+- name: Install the nmap package
+  yum:  pkg=nmap state=latest
+- name: Install the atop package
+  yum:  pkg=atop state=latest

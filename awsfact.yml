@@ -1,0 +1,12 @@
+--- # AWS EC2
+- hosts: aws
+  remote_user: ec2-user
+  become: yes 
+  gather_facts: yes
+  connection: ssh
+  tasks:
+  - name:  Facts about running instance
+    action: ec2_facts
+  - name: Display the instance type
+    debug: msg="{{ ansible_ec2_instance_type }}"
+    when: ansible_ec2_instance_type == 't2.micro'

@@ -1,0 +1,17 @@
+--- # This is our Ansible playbook
+- hosts: app
+  user:  root
+  sudo: yes       
+  connection: ssh 
+  gather_facts: no
+  vars:
+     playbook_version: 0.1b
+     vars_files:
+       - /tmp/server.yml
+       - /tmp/webroot.yml
+  vars_prompt:
+    - name: Welcome to Our New World of Automation 
+      prompt: New Automation World
+  tasks:
+    - name:  Install zsh on App Servers
+      yum:   pkg=zsh state=installed update_cache=true

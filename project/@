@@ -1,0 +1,61 @@
+--- # Host
+- hosts: app
+  user: root
+  sudo: yes
+  connection: ssh
+  gather_facts: yes
+  vars:
+    distribution: RedHat
+    nfsutils_pkg: nfs-utils
+    nfsidmap: libnfsidmap
+    nfsserver_service: nfs-server
+    nfslock_service: nfs-lock
+    nfsmap_service: nfs-idmap
+    rpcbind_service: rpcbind
+    export_path: /var/share
+    client_path: /mnt/remote
+  tasks:
+  - name: Install all the NFS Server and Utilities
+    yum: pkg={{ item }} state=latest
+    with_items:
+      - "{{ nfsutils_pkg }}"
+      - "{{ nfsidmap }}"
+  - name: Copy the export file to the remote server
+    copy: src=/tmp/exports dest=/etc/exports owner=root group=root mode=644
+    notify:
+    - StartServerServices
+    - StartClientServices
+    - InstallClientPackages
+    - CreateClientMount
+    - ClientMountServerResource
+    - TestServerAvailability
+    handlers:
+    - name: StartServerServices
+      service: name={{ item }} state=restarted
+      with_items:
+      - "{{ rpcbind_service }}"
+      - "{{ nfsserver_service }}"
+      - "{{ nfslock_service }}"
+      - "{{ nfsmap_service }}"
+#    - name: InstallClientPackages 
+#      yum: pkg={{ item }} state=latest
+#      with_items:
+#      - "{{ nfsutils_pkg }}"
+#      - "{{ nfsidmap }}"
+#      delegate_to: 127.0.0.1
+#    - name: StartClientServices
+#      service: name={{ item }} state=restarted
+#      with_items:
+#      - "{{ rpcbind_service }}"
+#      - "{{ nfslock_service }}"
+#      - "{{ nfsmap_service }}"
+#      delegate_to: 127.0.0.1
+#  - name: CreateClientMount 
+#    file: path={{ client_path }} state=directory mode=755
+#    delegate_to: 127.0.0.1
+#  - name: ClientMountServerResource 
+#     shell: mount -t nfs4 ansible-peer2:{{ export_path }} /mnt/remote
+#    register: result
+#    delegate_to: 127.0.0.1
+#  - name: TestServerAvailability
+#    debug: var=result

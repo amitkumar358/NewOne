@@ -1,0 +1,13 @@
+- name: Provision an EC2 Instance
+  hosts: localhost
+  connection: local
+  gather_facts: False
+  tags: provisioning
+  vars:
+    secret_key: "{{ secret_key }}"
+    access_key: "{{ access_key }}"
+    region: us-east-1
+
+- hosts: localhost
+  - name: This is just test Command
+    shell: /etc/ansible/ec2.py --refresh-cache

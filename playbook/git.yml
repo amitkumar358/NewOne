@@ -1,0 +1,8 @@
+--- # GIT
+- hosts: app
+  user: root
+  connection: ssh
+  gather_facts: no
+  tasks: 
+   - name: Checking out a git repo on the remote server
+     git: repo=ssh://root@ansible-peer1/root/repo dest=/root/gitrepo

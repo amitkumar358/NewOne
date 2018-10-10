@@ -1,0 +1,13 @@
+--- # Delegation
+- hosts: app
+  sudo: yes
+  user: root
+  connection: ssh
+  serial: 5
+  tasks:
+   - name: Run a remote ping on application server
+     command: ssh ansible-peer1 uptime  >  /tmp/op
+     delegate_to: ansible-peer3
+   - name: Install a package
+     yum: pkg=htop state=latest
+

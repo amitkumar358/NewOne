@@ -1,0 +1,11 @@
+--- # Command Module WorkOut
+- hosts: app
+  user: root
+  sudo: yes
+  connection: ssh
+  gather_facts: no
+  tasks:
+   - name: Running the script
+     command: /tmp/date.sh 
+     args:
+      chdir: /tmp

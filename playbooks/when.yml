@@ -1,0 +1,14 @@
+--- # When
+- hosts: all
+  sudo: yes
+  user: root
+  connection: ssh
+  vars:
+     playbook_type: ConditionalExample
+  tasks:
+    - name: Installation of telnet package
+      command: apt-get -y install telnet
+      when: ansible_os_family == "Debian" 
+    - name: Install httpd package on Redhat
+      command: yum -y install telnet
+      when: ansible_os_family == "RedHat"

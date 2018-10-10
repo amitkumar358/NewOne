@@ -1,0 +1,22 @@
+# Template files to be uploaded 
+
+<Connectivity>
+    ConnectionType {{ ConnectionType }}
+</Connectivity>
+
+<Account Information>
+    Username  {{ userName }}
+    Password  {{ userPassword }}
+</Account Information>
+
+<System Information>
+    DistributionType {{ ansible_os_family }}
+</System Information>
+
+<System Kernel Information>
+    KernalVersion {{ ansible_kernel }}
+</System DNS Information>
+
+<System FQDN Information>
+    FULLHostname {{ ansible_fqdn }}
+</System FQDN Information>

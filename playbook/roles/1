@@ -1,0 +1,7 @@
+--- # Master Nagios
+- hosts: app
+  user: root
+  sudo: yes
+  connection: ssh
+  roles:
+    - nagios

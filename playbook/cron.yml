@@ -1,0 +1,10 @@
+--- # Cron Module WorkOut
+- hosts: app
+  remote_user: root
+  become: yes
+  become_method: sudo 
+  connection: ssh
+  gather_facts: ssh
+  tasks:
+    - name: Add a Cron Job 
+      cron: name="List File1" minute="0" hour="1" job="ls -al /tmp > /tmp/result.log"

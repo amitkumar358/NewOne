@@ -1,0 +1,10 @@
+--- # Playbook for Task
+-  hosts: app
+   user:  root
+   sudo:  yes
+   connection: ssh
+   gather_facts: no
+   vars_files:
+   - samplevar.yml
+   tasks:
+    - include: /root/inc.yml

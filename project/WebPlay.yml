@@ -1,0 +1,32 @@
+--- # Writing the playbook
+- hosts: app
+  user: root
+  sudo: yes
+  connection: ssh
+  gather_facts: yes
+  vars:
+    apache_pkg: httpd
+    distribution: redhat
+    apache_version: 2.4
+    apache_dir: /var/www/host
+    apache_fqdn: ansible-peer1
+  tasks:
+    - name: Install the Web Server Package
+      yum:  pkg=httpd state=latest
+    - name: Create the web sever directory
+      file: path=/var/www/host state=directory mode=644
+    - name: Copy the Apache Configuration file to remote hosts
+      copy: src=/root/project/httpd.conf dest=/etc/httpd/conf/httpd.conf owner=root group=root mode=644
+    - name: Create the VHOST.D Directory onthe remote host
+      file: path=/etc/httpd/vhost.d state=directory mode=755
+    - name: Copy and untar the source for the site
+      unarchive: src=/root/project/site.tar.gz dest=/var/www/host
+    - name: Copy the vhost config file
+      copy: src=/root/project/default.conf dest=/etc/httpd/vhost.d/default.conf owner=root group=root mode=644
+    - name: Start the Web Server
+      service: name=httpd state=started
+    - name: Test the Web Server
+      shell: curl http://ansible-peer1
+      register: result
+    - name: DisplayResult
+      debug: var=result

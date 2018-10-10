@@ -1,0 +1,4 @@
+- hosts: app
+  tasks:
+- name: Reboot
+  command: /sbin/reboot

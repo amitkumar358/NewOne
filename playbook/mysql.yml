@@ -1,0 +1,11 @@
+--- # 
+- hosts: app
+  user: root
+  sudo: yes
+  connection: ssh
+  gather_facts: yes
+  tasks:
+   - name: Install the Python package
+     yum:  pkg=MySQL-python state=latest
+   - name: granting permission 
+     mysql_user: name=ta password=redhat priv=*.*:ALL state=absent login_user=root

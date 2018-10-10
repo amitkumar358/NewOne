@@ -1,0 +1,12 @@
+- name: Add a list of Software
+  yum: pkg={{ item }} state=latest
+  with_items:
+  - nmap
+  - htop
+  - atop
+  tags: install_pkg
+- name: Install telnet package
+  yum: pkg=telnet state=installed
+  register: result
+  tags: show
+- debug: var=result 

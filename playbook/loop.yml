@@ -1,0 +1,16 @@
+---
+- hosts:  dbservers
+  tasks:
+    - name: install common software requirement
+      yum:  name={{ item }} state=present
+      with_items:
+       - git
+       - htop
+       - vim
+       - unzip
+       - zsh
+
+    - name:  set up group
+      user:
+        name=ak
+        state=absent

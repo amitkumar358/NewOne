@@ -1,0 +1,11 @@
+--- #
+- hosts: app
+  user: root
+  sudo: yes
+  connection: ssh
+  vars_files:
+    - /root/playbook/conf/variables/variables.yml
+  tasks:
+    - include: /root/playbook/conf/packages/packages.yml 
+    - include: /root/playbook/conf/commands/commands.yml 
+    - include: /root/playbook/conf/handlers/handlers.yml 

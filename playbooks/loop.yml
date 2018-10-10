@@ -1,0 +1,12 @@
+---
+- hosts:  db
+  user:   root
+  sudo:   yes
+  connection: ssh
+  
+  tasks:
+    - name: install common software requirement
+      command: echo {{ item }}
+      with_items: [ One, Two, Five, 6, 8, 10 ]
+      when: ansible_os_family == "Redhat"
+

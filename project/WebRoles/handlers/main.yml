@@ -1,0 +1,11 @@
+    - name: StartHttp
+      service: name=httpd state=restarted
+    - name: TestHttp
+      shell: curl http://{{ apache_fqdn }}
+#     register: result
+#   - name: DResult
+#     debug: var=result
+      register: result
+    - name: DResult
+      debug: var=result
+

@@ -1,0 +1,4 @@
+- name: Installed the atop package
+  action: yum name=atop state=installed
+- name: Check for telnet Client
+  action: yum name=telnet state=absent

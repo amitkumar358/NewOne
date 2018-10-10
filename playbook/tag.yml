@@ -1,0 +1,17 @@
+--- #TAG FEATURE
+
+- hosts: app
+  user:  root
+  sudo:  yes
+  connection: ssh
+  gather_facts: no
+  tasks:
+    - debug: msg="Always runs"
+      tags:
+        - always
+    - debug: msg="runs when you use tag1"
+      tags:
+        - tag1
+      register: result
+    - debug: var=result
+
