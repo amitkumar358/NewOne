@@ -14,5 +14,13 @@ node{
           sh "${mvnHome}/bin/mvn sonar:sonar"
         }
     }
-  
+   
+   stage('slack generator') {
+     slackSend baseUrl: 'https://hooks.slack.com/services/', 
+     channel: '#jenkinstest',
+     color: 'good',
+     message: 'Welcome to Jenkins worlds',
+     teamDomain: 'home',
+     tokenCredentialId: 'slackdemo'  
+      }
 }
